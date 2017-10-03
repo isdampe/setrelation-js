@@ -41,6 +41,7 @@ if ( sr2.reflexive() ) {
   process.exit(1);
 }
 console.log("PASS: Set relation test two is not reflexive.");
+console.log(sr2.getError());
 
 const rel3 = [
   {
@@ -67,3 +68,4 @@ if ( sr3.reflexive() ) {
   process.exit(1);
 }
 console.log("PASS: Set relation test three is not reflexive.");
+console.log(sr3.getError());
