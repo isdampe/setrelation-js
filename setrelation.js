@@ -81,6 +81,45 @@ class setRelation {
   }
 
   /**
+   * Determines whether the current instance relation set is anti-symmetric.
+   * @return {bool} True if it's anti-symmetric, otherwise false.
+   */
+  antisymmetric() {
+
+    var i = 0, mmax = this.members.length;
+    var match = false;
+    var matchPairs = {};
+
+    for ( i=0; i<mmax; i++ ) {
+      if ( this.members[i].a == this.members[i].b )
+        continue;
+      matchPairs[this.members[i].a + "-" + this.members[i].b] = {
+        a: this.members[i].b,
+        b: this.members[i].a
+      };
+    }
+
+    for ( var key in matchPairs ) {
+      match = false;
+      for ( i=0; i<mmax; i++ ) {
+        if ( this.members[i].a === matchPairs[key].a &&
+             this.members[i].b === matchPairs[key].b )
+          match = true;
+      }
+      if ( match === true ) {
+        this.error = "(" + matchPairs[key].b + "," + matchPairs[key].a +
+                      ") is in R and (" + matchPairs[key].a + "," +
+                      matchPairs[key].b + ") is in R, but " + matchPairs[key].a +
+                      " does not equal " + matchPairs[key].b;
+        return false;
+      }
+    }
+
+    return true;
+
+  }
+
+  /**
    * Returns the last error of the instance.
    * @return {string} The last error description.
    */
